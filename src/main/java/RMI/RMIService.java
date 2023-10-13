@@ -13,6 +13,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class RMIService extends UnicastRemoteObject implements IRMIService, Serializable {
 
+
+
     protected RMIService(String path) throws RemoteException {
         File storageDir = new File(path);
         storageDir.mkdir();
@@ -77,5 +79,10 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
     public boolean removeDirectoryOrFile(String path) throws RemoteException {
         File deleteFolder = new File(path);
         return deleteFolder.delete();
+    }
+
+    @Override
+    public boolean changeFileName(String newName, String path) throws RemoteException {
+        File deleteFolder = new File(path);;
     }
 }

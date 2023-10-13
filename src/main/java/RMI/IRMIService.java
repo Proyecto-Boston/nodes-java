@@ -6,5 +6,6 @@ public interface IRMIService extends Remote {
     public byte[] downloadFile(String path) throws RemoteException;
     public boolean createDirectory(String path) throws RemoteException;
     public boolean removeDirectoryOrFile(String path) throws RemoteException;
+    public boolean changeFileName(String newName, String path) throws RemoteException;
 }
 
