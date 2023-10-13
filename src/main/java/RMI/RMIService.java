@@ -5,24 +5,21 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class RMIService extends UnicastRemoteObject implements IRMIService, Serializable {
-
-
-
-    protected RMIService(String path) throws RemoteException {
-        File storageDir = new File(path);
-        storageDir.mkdir();
+    
+    private String appPath;
+    
+    public RMIService(String appPath) throws RemoteException {
+        this.appPath = appPath;
     }
     @Override
-    public String uploadFile(byte[] fileData, String path, int length) throws RemoteException {
+    public String uploadFile(String userPath, byte[] fileData) throws RemoteException {
         try {
-            File pathFile = new File(path);
+            File pathFile = new File(userPath);
             FileOutputStream out = new FileOutputStream(pathFile);
 
             out.write(fileData);
@@ -39,10 +36,10 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
     }
 
     @Override
-    public byte[] downloadFile(String path) throws RemoteException {
+    public byte[] downloadFile(String userPath) throws RemoteException {
         byte [] mydata;
 
-        File serverpathfile = new File(path);
+        File serverpathfile = new File(userPath);
         mydata=new byte[(int) serverpathfile.length()];
         FileInputStream in;
         try {
@@ -70,19 +67,23 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
 
 
     @Override
-    public boolean createDirectory(String path) throws RemoteException {
-        File newFolder = new File(path);
+    public boolean createDirectory(String userPath) throws RemoteException {
+        File newFolder = new File(userPath);
         return newFolder.mkdir();
     }
 
     @Override
-    public boolean removeDirectoryOrFile(String path) throws RemoteException {
-        File deleteFolder = new File(path);
+    public boolean removeDirectoryOrFile(String userPath) throws RemoteException {
+        File deleteFolder = new File(userPath);
         return deleteFolder.delete();
     }
 
     @Override
-    public boolean changeFileName(String newName, String path) throws RemoteException {
-        File deleteFolder = new File(path);;
+    // * This method is also used for changing the name of the file
+    public boolean changeFilePath(String userPath, String newPath) throws RemoteException {
+        File currentFile = new File(userPath);
+        File fileRelocated = new File(newPath);
+
+        return  currentFile.renameTo(fileRelocated);
     }
 }
