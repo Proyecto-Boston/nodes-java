@@ -66,18 +66,16 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
         return mydata;
     }
 
-    @Override
-    public String[] listFiles(String path) throws RemoteException {
-        return new String[0];
-    }
 
     @Override
     public boolean createDirectory(String path) throws RemoteException {
-        return false;
+        File newFolder = new File(path);
+        return newFolder.mkdir();
     }
 
     @Override
     public boolean removeDirectoryOrFile(String path) throws RemoteException {
-        return false;
+        File deleteFolder = new File(path);
+        return deleteFolder.delete();
     }
 }
