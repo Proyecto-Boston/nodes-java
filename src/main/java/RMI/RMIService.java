@@ -37,8 +37,33 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
     }
 
     @Override
-    public byte[] downloadFile(String servername) throws RemoteException {
-        return new byte[0];
+    public byte[] downloadFile(String path) throws RemoteException {
+        byte [] mydata;
+
+        File serverpathfile = new File(path);
+        mydata=new byte[(int) serverpathfile.length()];
+        FileInputStream in;
+        try {
+            in = new FileInputStream(serverpathfile);
+            try {
+                in.read(mydata, 0, mydata.length);
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+            try {
+                in.close();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+        }
+
+        return mydata;
     }
 
     @Override
