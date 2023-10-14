@@ -11,12 +11,12 @@ public class Server implements Serializable{
         try{
 
             int portnumber = 1990;
-            Registry reg = LocateRegistry.createRegistry(portnumber);   //Creates and exports a Registry instance on the local host that accepts requests
-            //on the specified port.
+            Registry registry = LocateRegistry.createRegistry(portnumber);
             RMIService  rmiService = new RMIService("");
 
-            System.out.println("Server is ready.");
-            System.out.println(portnumber);
+            registry.bind("Node1", rmiService);
+
+            System.out.println("Node in port:" + portnumber);
         }
         catch(Exception e){
             System.out.println("Server failed: " + e);
