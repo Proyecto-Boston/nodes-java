@@ -18,7 +18,6 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
     }
     @Override
     public String uploadFile(String nameWithExt, String userPath, byte[] fileData) throws RemoteException {
-        System.out.println("Path: "+appPath + "/"+ userPath);
         try {
             File filePath = new File(appPath + "/" + userPath);
 
@@ -41,10 +40,10 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
     }
 
     @Override
-    public byte[] downloadFile(String userPath) throws RemoteException {
+    public byte[] downloadFile(String filePath) throws RemoteException {
         byte [] mydata;
 
-        File serverpathfile = new File(appPath + userPath);
+        File serverpathfile = new File(appPath + "/" + filePath);
         mydata=new byte[(int) serverpathfile.length()];
         FileInputStream in;
         try {
@@ -73,21 +72,22 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
 
     @Override
     public boolean createDirectory(String userPath) throws RemoteException {
-        File newFolder = new File(appPath + userPath);
+        File newFolder = new File(appPath + "/" + userPath);
         return newFolder.mkdir();
     }
 
     @Override
     public boolean removeDirectoryOrFile(String userPath) throws RemoteException {
-        File deleteFolder = new File(appPath + userPath);
+        System.out.println(appPath + "/" + userPath);
+        File deleteFolder = new File(appPath + "/" + userPath);
         return deleteFolder.delete();
     }
 
     @Override
     // * This method is also used for changing the name of the file
     public boolean changeFilePath(String userPath, String newPath) throws RemoteException {
-        File currentFile = new File(appPath + userPath);
-        File fileRelocated = new File(newPath);
+        File currentFile = new File(appPath + "/" + userPath);
+        File fileRelocated = new File(appPath + "/" + newPath);
 
         return  currentFile.renameTo(fileRelocated);
     }
