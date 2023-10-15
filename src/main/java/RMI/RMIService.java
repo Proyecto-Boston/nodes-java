@@ -77,10 +77,28 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
     }
 
     @Override
-    public boolean removeDirectoryOrFile(String userPath) throws RemoteException {
-        System.out.println(appPath + "/" + userPath);
-        File deleteFolder = new File(appPath + "/" + userPath);
+    public boolean removeFile(String filePath) throws RemoteException {
+        System.out.println(appPath + "/" + filePath);
+        File deleteFolder = new File(appPath + "/" + filePath);
         return deleteFolder.delete();
+    }
+
+    public boolean removeFolder(String folderPath) throws RemoteException {
+        File folder = new File(appPath + "/" + folderPath);
+
+        return recursiveDelete(folder);
+    }
+
+    private boolean recursiveDelete(File folder){
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    recursiveDelete(file);
+                }
+            }
+        }
+        return folder.delete();
     }
 
     @Override
