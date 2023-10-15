@@ -11,16 +11,21 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class RMIService extends UnicastRemoteObject implements IRMIService, Serializable {
     
-    private String appPath;
+    private final String appPath;
     
     public RMIService(String appPath) throws RemoteException {
         this.appPath = appPath;
     }
     @Override
-    public String uploadFile(String userPath, byte[] fileData) throws RemoteException {
+    public String uploadFile(String nameWithExt, String userPath, byte[] fileData) throws RemoteException {
+        System.out.println("Path: "+appPath + "/"+ userPath);
         try {
-            File pathFile = new File(userPath);
-            FileOutputStream out = new FileOutputStream(pathFile);
+            File filePath = new File(appPath + "/" + userPath);
+
+            if(!filePath.exists()){
+                if(!filePath.mkdir()) return "Error al crear la carpeta";
+            }
+            FileOutputStream out = new FileOutputStream(filePath+ "/" + nameWithExt);
 
             out.write(fileData);
             out.flush();
@@ -39,7 +44,7 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
     public byte[] downloadFile(String userPath) throws RemoteException {
         byte [] mydata;
 
-        File serverpathfile = new File(userPath);
+        File serverpathfile = new File(appPath + userPath);
         mydata=new byte[(int) serverpathfile.length()];
         FileInputStream in;
         try {
@@ -68,20 +73,20 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
 
     @Override
     public boolean createDirectory(String userPath) throws RemoteException {
-        File newFolder = new File(userPath);
+        File newFolder = new File(appPath + userPath);
         return newFolder.mkdir();
     }
 
     @Override
     public boolean removeDirectoryOrFile(String userPath) throws RemoteException {
-        File deleteFolder = new File(userPath);
+        File deleteFolder = new File(appPath + userPath);
         return deleteFolder.delete();
     }
 
     @Override
     // * This method is also used for changing the name of the file
     public boolean changeFilePath(String userPath, String newPath) throws RemoteException {
-        File currentFile = new File(userPath);
+        File currentFile = new File(appPath + userPath);
         File fileRelocated = new File(newPath);
 
         return  currentFile.renameTo(fileRelocated);
