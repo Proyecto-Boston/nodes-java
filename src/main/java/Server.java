@@ -15,8 +15,8 @@ public class Server implements Serializable{
             Registry registry = LocateRegistry.createRegistry(portnumber);
             RMIService  rmiService = new RMIService("C:/Users/Jhon/Documents/PruebaRMI");
 
-            registry.rebind("Node1", rmiService);
-            //Naming.rebind("/node1", rmiService);
+            //registry.rebind("Node1", rmiService);
+            Naming.rebind("rmi://192.168.1.4:1099/nodo", rmiService);
 
             System.out.println("CAmbiosss");
             System.out.println("Node in port:" + portnumber);
