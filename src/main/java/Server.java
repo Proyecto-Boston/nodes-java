@@ -11,14 +11,14 @@ public class Server implements Serializable{
 
         try{
 
-            int portnumber = 1099;
+            int portnumber = 1098;
             Registry registry = LocateRegistry.createRegistry(portnumber);
             RMIService  rmiService = new RMIService("C:/Users/Jhon/Documents/PruebaRMI");
 
-            registry.bind("Node1", rmiService);
-            Naming.rebind("/node1", rmiService);
+            registry.rebind("Node1", rmiService);
+            //Naming.rebind("/node1", rmiService);
 
-
+            System.out.println("CAmbiosss");
             System.out.println("Node in port:" + portnumber);
         }
         catch(Exception e){

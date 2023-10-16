@@ -18,6 +18,7 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
     }
     @Override
     public String uploadFile(String nameWithExt, String userPath, byte[] fileData) throws RemoteException {
+        System.out.println("Solicitud para subir!");
         try {
             File filePath = new File(appPath + "/" + userPath);
 

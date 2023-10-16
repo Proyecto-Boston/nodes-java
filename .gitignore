@@ -1,7 +1,7 @@
-target/
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
-!**/src/test/**/target/
+!/target/nodo-almacenamiento.jar
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/target/classes/
+/target/generated-sources/
+/target/maven-archiver/
+/target/maven-status/
