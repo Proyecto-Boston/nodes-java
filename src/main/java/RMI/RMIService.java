@@ -17,13 +17,13 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
         this.appPath = appPath;
     }
     @Override
-    public String uploadFile(String nameWithExt, String userPath, byte[] fileData) throws RemoteException {
+    public int uploadFile(String nameWithExt, String userPath, byte[] fileData) throws RemoteException {
         System.out.println("Solicitud para subir!");
         try {
             File filePath = new File(appPath + "/" + userPath);
 
             if(!filePath.exists()){
-                if(!filePath.mkdir()) return "Error al crear la carpeta";
+                if(!filePath.mkdir()) return 500;
             }
             FileOutputStream out = new FileOutputStream(filePath+ "/" + nameWithExt);
 
@@ -31,11 +31,11 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
             out.flush();
             out.close();
 
-            return "Archivo subido exitosamente!";
+            return 200;
 
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error al subir el archivo.";
+            return 500;
         }
 
     }
