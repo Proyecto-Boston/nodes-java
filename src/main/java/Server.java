@@ -14,7 +14,7 @@ public class Server implements Serializable{
             RMIService  rmiService = new RMIService("/home/java-admin/storage");
             Registry registry = LocateRegistry.createRegistry(portnumber);
             registry.bind("node", rmiService);
-            Runtime.getRuntime().exec("node 1099");
+
             Naming.rebind("rmi://localhost:1099/node", rmiService);
 
             //System.out.println("CAmbiosss");
