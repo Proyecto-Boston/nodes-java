@@ -12,7 +12,7 @@ public class Server implements Serializable{
             int portnumber = 1099;
             Registry registry = LocateRegistry.createRegistry(portnumber);
             RMIService  rmiService = new RMIService("/home/java-admin/storage");
-            registry.rebind("node", rmiService);
+            registry.bind("node", rmiService);
             //Naming.rebind("rmi://192.168.1.4:1099/nodo", rmiService);
 
             //System.out.println("CAmbiosss");
