@@ -11,10 +11,10 @@ public class Server implements Serializable{
         try{
 
             int portnumber = 1099;
-            RMIService  rmiService = new RMIService("/home/java-admin/storage");
+            RMIService  rmiService = new RMIService("/home/nodo/storage");
+            System.setProperty("java.rmi.server.hostname","127.0.0.1");
             Registry registry = LocateRegistry.createRegistry(portnumber);
             registry.rebind("node", rmiService);
-
            // Naming.rebind("rmi://localhost:1099/node", rmiService);
 
             //System.out.println("CAmbiosss");
