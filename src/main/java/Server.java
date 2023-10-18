@@ -1,7 +1,6 @@
-import RMI.RMIService;
+import rmi.RMIService;
 
 import java.io.Serializable;
-import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -12,7 +11,7 @@ public class Server implements Serializable{
         try{
 
             int portnumber = 1099;
-            //System.setProperty("java.rmi.server.hostname","192.168.1.4");
+            System.setProperty("java.rmi.server.hostname","192.168.1.4");
             Registry registry = LocateRegistry.createRegistry(portnumber);
             RMIService  rmiService = new RMIService("/home/java-admin/storage");
             registry.rebind("node", rmiService);
