@@ -46,6 +46,8 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
 
         File serverpathfile = new File(appPath + "/" + filePath);
         mydata=new byte[(int) serverpathfile.length()];
+        if(mydata.length == 0) return null;
+
         FileInputStream in;
         try {
             in = new FileInputStream(serverpathfile);
