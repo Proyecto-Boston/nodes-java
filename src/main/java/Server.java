@@ -1,5 +1,6 @@
 import rmi.RMIService;
 import java.io.Serializable;
+import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -10,10 +11,11 @@ public class Server implements Serializable{
         try{
 
             int portnumber = 1099;
-            Registry registry = LocateRegistry.createRegistry(portnumber);
             RMIService  rmiService = new RMIService("/home/java-admin/storage");
+            Registry registry = LocateRegistry.createRegistry(portnumber);
             registry.bind("node", rmiService);
-            //Naming.rebind("rmi://192.168.1.4:1099/nodo", rmiService);
+
+            Naming.rebind("rmi://localhost:1099/node", rmiService);
 
             //System.out.println("CAmbiosss");
             System.out.println("Node in port:" + portnumber);
