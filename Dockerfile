@@ -8,4 +8,4 @@ COPY target/nodo-almacenamiento.jar ./app.jar
 
 EXPOSE 1099
 
-CMD ["java", "-cp", "/app.jar", "Server"] 
+CMD ["java", "-jar", "./app.jar"]
