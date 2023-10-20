@@ -12,7 +12,7 @@ public class Server implements Serializable{
 
             int portnumber = 1099;
             RMIService  rmiService = new RMIService("/home/nodo/storage");
-            System.setProperty("java.rmi.server.hostname","192.168.1.18");
+            //System.setProperty("java.rmi.server.hostname","192.168.1.18");
             Registry registry = LocateRegistry.createRegistry(portnumber);
             registry.rebind("node", rmiService);
            // Naming.rebind("rmi://localhost:1099/node", rmiService);
