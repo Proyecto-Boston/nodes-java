@@ -8,7 +8,9 @@ COPY target/nodo-almacenamiento.jar ./app.jar
 
 COPY java.policy /usr/local/openjdk-11/conf/security/java.policy
 
-RUN javac -d bin -cp src/main/java src/main/java/Server.java
+RUN javac -d bin -cp src/main/java src/main/java/Server.java src/main/java/rmi/RMIService.java src/main/java/rmi/IRMIService.java
+
+#RUN javac -d bin -cp src/main/java src/main/java/Server.java
 
 EXPOSE 1099
 
