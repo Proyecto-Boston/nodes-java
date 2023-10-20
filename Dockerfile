@@ -1,9 +1,11 @@
-FROM openjdk:11
+FROM openjdk:11-jre-slim
 
-CMD ["mvn","package"]
+WORKDIR /app
 
-ADD target/nodo-almacenamiento.jar nodo-almacenamiento.jar
+COPY src ./src
 
-ENTRYPOINT ["java", "-jar","nodo-almacenamiento.jar"]
+COPY target/nodo-almacenamiento.jar ./app.jar
 
 EXPOSE 1099
+
+CMD ["java", "-cp", "/app.jar", "Server"] 

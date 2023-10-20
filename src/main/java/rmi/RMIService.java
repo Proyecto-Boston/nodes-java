@@ -39,6 +39,10 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
         }
 
     }
+    @Override
+    public void printMessage(String msg) throws RemoteException {
+        System.out.println("Message from client: " + msg);
+    }
 
     @Override
     public byte[] downloadFile(String filePath) throws RemoteException {
