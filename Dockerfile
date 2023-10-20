@@ -8,4 +8,4 @@ COPY target/nodo-almacenamiento.jar ./app.jar
 
 EXPOSE 1099
 
-CMD ["java", "-jar", "./app.jar"]
+CMD ["java", "-Djava.rmi.server.hostname=192.168.1.18","-jar", "./app.jar"]
