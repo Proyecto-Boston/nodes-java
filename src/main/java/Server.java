@@ -10,7 +10,7 @@ public class Server implements Serializable{
     public static void main(String[] args) {
 
         try{
-            //nO importa
+            
             int portnumber = 1099;
             RMIService  rmiService = new RMIService();
             IRMIService service = (IRMIService) rmiService;
@@ -19,7 +19,6 @@ public class Server implements Serializable{
             registry.rebind("node", service);
            // Naming.rebind("rmi://localhost:1099/node", rmiService);
 
-            //System.out.println("CAmbiosss");
             System.out.println("Node in port:" + portnumber);
         }
         catch(Exception e){
