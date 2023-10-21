@@ -11,10 +11,10 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class RMIService extends UnicastRemoteObject implements IRMIService, Serializable {
     
-    private final String appPath;
-    
-    public RMIService(String appPath) throws RemoteException {
-        this.appPath = appPath;
+    private final String appPath = "/home/nodo/storage";
+    //no sé pero está en lo nuestro
+    public RMIService() throws RemoteException {
+        super();
     }
     @Override
     public int uploadFile(String nameWithExt, String userPath, byte[] fileData) throws RemoteException {
@@ -38,6 +38,10 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
             return 500;
         }
 
+    }
+    @Override
+    public void printMessage(String msg) throws RemoteException {
+        System.out.println("Message from client: " + msg);
     }
 
     @Override
