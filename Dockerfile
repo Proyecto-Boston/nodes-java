@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11
 
-WORKDIR /app
+WORKDIR /home/nodo/storage
 
 COPY src ./src
 
@@ -12,4 +12,4 @@ RUN javac -d bin -cp src/main/java src/main/java/Server.java src/main/java/rmi/R
 
 EXPOSE 1099
 
-CMD ["java", "-Djava.rmi.server.hostname=192.168.1.18", "-Dcom.sun.management.jmxremote.local.only=false","-Dcom.sun.management.jmxremote.authenticate=false","-Dcom.sun.management.jmxremote.ssl=false","-cp","bin","Server"]
+CMD ["java", "-Djava.rmi.server.hostname=192.168.1.200", "-Dcom.sun.management.jmxremote.local.only=false","-Dcom.sun.management.jmxremote.authenticate=false","-Dcom.sun.management.jmxremote.ssl=false", "-jar", "app.jar"]
