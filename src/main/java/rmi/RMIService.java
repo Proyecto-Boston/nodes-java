@@ -12,7 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class RMIService extends UnicastRemoteObject implements IRMIService, Serializable {
     
     private final String appPath = "/home/nodo/storage";
-    //no sé pero está en lo nuestro
+    
     public RMIService() throws RemoteException {
         super();
     }
@@ -21,7 +21,7 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
         System.out.println("Solicitud para subir!");
         try {
             File filePath = new File(appPath + "/" + userPath);
-
+            System.out.println(appPath + "/" + userPath);
             if(!filePath.exists()){
                 if(!filePath.mkdir()) return 500;
             }
@@ -38,10 +38,6 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
             return 500;
         }
 
-    }
-    @Override
-    public void printMessage(String msg) throws RemoteException {
-        System.out.println("Message from client: " + msg);
     }
 
     @Override
