@@ -76,8 +76,14 @@ public class RMIService extends UnicastRemoteObject implements IRMIService, Seri
 
 
     @Override
-    public boolean createDirectory(String userPath) throws RemoteException {
-        File newFolder = new File(appPath + "/" + userPath);
+    public boolean createDirectory(String foderPath) throws RemoteException {
+        File userPath = new File(appPath + "/" + foderPath.split("/")[0]);
+        System.out.println(appPath + "/" + foderPath.split("/")[0]);
+        if(!userPath.exists()){
+            if(!userPath.mkdir()) return false;
+        }
+
+        File newFolder = new File(appPath + "/" + foderPath);
         return newFolder.mkdir();
     }
 
