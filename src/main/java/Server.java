@@ -11,8 +11,8 @@ public class Server implements Serializable{
 
         try{
             
-            int portnumber = 1099;
-            RMIService  rmiService = new RMIService();
+            int portnumber = Integer.parseInt(args[0]);
+            RMIService  rmiService = new RMIService(args [1]);
             IRMIService service = (IRMIService) rmiService;
             //System.setProperty("java.rmi.server.hostname","192.168.1.18");
             Registry registry = LocateRegistry.createRegistry(portnumber);
